@@ -1,0 +1,17 @@
+app:
+  host: 0.0.0.0
+  port: 8000
+
+token:
+  secret: SecretText
+  expiration_time: 3600
+  algorithm: HS256
+
+database:
+  name: forum
+  user: forum
+  password: forum
+  host: db
+  port: 5432
+  admin_user: forum
+  admin_password: forum
