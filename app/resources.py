@@ -11,8 +11,11 @@ def setup_routes(app):
         'POST', '/logout', container.auth.logout_user.as_view()
     )
     app.router.add_route(
+        'PUT', '/api/users/me', container.user.update_me.as_view()
+    )
+    app.router.add_route(
         'GET',  '/api/users/me', container.user.get_user_me.as_view()
     )
     app.router.add_route(
-        'PUT', '/api/users/me', container.user.update_me.as_view()
+        'POST', '/api/posts', container.post.create_post.as_view()
     )
