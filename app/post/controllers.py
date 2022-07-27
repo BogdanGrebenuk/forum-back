@@ -27,4 +27,23 @@ async def create_post(request, post_mapper):
     })
 
 
-# async def get_posts(request, post_mapper):
+async def get_all_posts(request, post_mapper):
+    posts = await post_mapper.get_all_posts()
+
+    result = []
+    for post in posts:
+        temp = {
+            'id': post[0],
+            'title': post[1],
+            'content': post[2],
+            'image': post[3],
+            'author_id': post[4],
+            'username': post[5],
+            'avatar': post[6],
+            'comments': []
+        }
+        result.append(temp)
+
+    return web.json_response({
+        'posts': result
+    })

@@ -19,3 +19,6 @@ def setup_routes(app):
     app.router.add_route(
         'POST', '/api/posts', container.post.create_post.as_view()
     )
+    app.router.add_route(
+        'GET', '/api/posts', container.post.get_all_posts.as_view()
+    )
