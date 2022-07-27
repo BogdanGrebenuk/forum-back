@@ -69,6 +69,9 @@ async def additional_token_checker(request, handler, user_mapper):
     if str(request.rel_url) in WHITELIST:
         return await handler(request)
 
+    if request.method == 'OPTIONS':
+        return await handler(request)
+
     payload = request.get('token_payload')
     user_id = payload.get('user_id')
     if user_id is None:
