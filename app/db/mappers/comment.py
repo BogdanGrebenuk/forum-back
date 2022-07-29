@@ -11,7 +11,7 @@ class CommentMapper(Mapper):
                 await conn.execute(
                     text("""
                         SELECT
-                            comment.id as id, comment.content as content, \"user\".id as author_id, \"user\".username as username, \"user\".avatar as avatar
+                            comment.id as id, comment.content as content, comment.created_at as created_at, \"user\".id as author_id, \"user\".username as username, \"user\".avatar as avatar
                         FROM comment
                         LEFT JOIN \"user\" ON comment.author_id = \"user\".id
                         WHERE comment.post_id = :post_id

@@ -1,3 +1,4 @@
+import datetime
 from dataclasses import dataclass
 
 from app.utils.mapper import Entity
@@ -10,6 +11,7 @@ class Post(Entity):
     content: str
     image: str
     author_id: str
+    created_at: datetime.datetime
 
 
 @dataclass
@@ -18,3 +20,4 @@ class Comment(Entity):
     content: str
     author_id: str
     post_id: str
+    created_at: datetime.datetime

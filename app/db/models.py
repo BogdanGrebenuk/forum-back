@@ -21,6 +21,7 @@ Post = sa.Table(
     sa.Column('content', sa.Text, nullable=False),
     sa.Column('image', sa.Text, nullable=True),
     sa.Column('author_id', sa.Text, sa.ForeignKey('user.id'), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
 )
 
 Comment = sa.Table(
@@ -30,4 +31,5 @@ Comment = sa.Table(
     sa.Column('content', sa.Text, nullable=False),
     sa.Column('author_id', sa.Text, sa.ForeignKey('user.id'), nullable=False),
     sa.Column('post_id', sa.Text, sa.ForeignKey('post.id'), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
 )
