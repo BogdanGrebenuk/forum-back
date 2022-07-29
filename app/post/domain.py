@@ -10,3 +10,11 @@ class Post(Entity):
     content: str
     image: str
     author_id: str
+
+
+@dataclass
+class Comment(Entity):
+    id: str
+    content: str
+    author_id: str
+    post_id: str

@@ -1,7 +1,7 @@
 import uuid
 from aiohttp import web
 
-from app.post.domain import Post
+from app.post.domain import Post, Comment
 
 
 async def create_post(request, post_mapper):
@@ -27,7 +27,7 @@ async def create_post(request, post_mapper):
     })
 
 
-async def get_all_posts(request, post_mapper):
+async def get_all_posts(request, post_mapper, comment_mapper):
     posts = await post_mapper.get_all_posts()
 
     result = []
@@ -40,10 +40,45 @@ async def get_all_posts(request, post_mapper):
             'author_id': post[4],
             'username': post[5],
             'avatar': post[6],
-            'comments': []
         }
+        comments = await comment_mapper.get_comments_for_post(temp['id'])
+        comments = [
+            {
+                'id': comment[0],
+                'content': comment[1],
+                'author_id': comment[2],
+                'username': comment[3],
+                'avatar': comment[4]
+            }
+            for comment in comments
+        ]
+        temp['comments'] = comments
         result.append(temp)
 
     return web.json_response({
         'posts': result
+    })
+
+
+async def create_comment(request, comment_mapper):
+    user = request['user']
+    body = await request.json()
+    post_id = request.match_info.get('post_id')
+
+    comment = Comment(
+        id=str(uuid.uuid4()),
+        content=body.get('content', ''),
+        author_id=user.id,
+        post_id=post_id
+    )
+
+    await comment_mapper.create(comment)
+
+    return web.json_response({
+        'id': comment.id,
+        'content': comment.content,
+        'author_id': comment.author_id,
+        'post_id': comment.post_id,
+        'username': user.username,
+        'avatar': user.avatar
     })

@@ -5,11 +5,12 @@ from dependency_injector.ext import aiohttp as ext_aiohttp
 
 from app.auth.containers import AuthPackageContainer
 from app.db import models
+from app.db.mappers.comment import CommentMapper
 from app.db.mappers.post import PostMapper
 from app.db.mappers.user import UserMapper
 from app.middlewares import error_handler, create_jwt_middleware, request_logger, additional_token_checker
 from app.post.containers import PostPackageContainer
-from app.post.domain import Post
+from app.post.domain import Post, Comment
 from app.user.containers import UserPackageContainer
 from app.user.domain import User
 from app.utils.engine import init_engine
@@ -70,6 +71,13 @@ class MappersContainer(containers.DeclarativeContainer):
         engine=gateways.engine,
         model=models.Post,
         entity_cls=Post
+    )
+
+    comment_mapper = providers.Singleton(
+        CommentMapper,
+        engine=gateways.engine,
+        model=models.Comment,
+        entity_cls=Comment
     )
 
 
