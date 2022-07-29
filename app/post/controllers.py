@@ -58,11 +58,11 @@ async def get_all_posts(request, post_mapper, comment_mapper):
             }
             for comment in comments
         ]
-        comments.sort(key=lambda c: c['created_at'])
+        comments.sort(key=lambda c: c['createdAt'])
         temp['comments'] = comments
         result.append(temp)
 
-    result.sort(key=lambda p: p['created_at'])
+    result.sort(key=lambda p: p['createdAt'])
     return web.json_response({
         'posts': result
     })
