@@ -20,6 +20,8 @@ from app.utils.executor import (
     init_thread_pool
 )
 from app.utils.validator import Validator
+from app.utils.wspool import WSPool
+from app.ws.containers import WSContainer
 
 
 class Gateways(containers.DeclarativeContainer):
@@ -51,6 +53,8 @@ class ApplicationUtilsContainer(containers.DeclarativeContainer):
     )
 
     validator = providers.Singleton(Validator)
+
+    ws_pool = providers.Singleton(WSPool)
 
     logger = providers.Singleton(logging.Logger, name='main')
 
@@ -151,4 +155,10 @@ class ApplicationContainer(containers.DeclarativeContainer):
     post = providers.Container(
         PostPackageContainer,
         mappers=mappers,
+        application_utils=application_utils
+    )
+
+    ws = providers.Container(
+        WSContainer,
+        application_utils=application_utils
     )

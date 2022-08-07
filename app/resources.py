@@ -25,3 +25,6 @@ def setup_routes(app):
     app.router.add_route(
         'POST', '/api/posts/{post_id}/comments', container.post.create_comment.as_view()
     )
+    app.router.add_route(
+        'GET', '/ws', container.ws.index.as_view()
+    )

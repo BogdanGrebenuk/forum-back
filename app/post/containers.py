@@ -6,6 +6,8 @@ from app.post.controllers import create_post, get_all_posts, create_comment
 
 class PostPackageContainer(containers.DeclarativeContainer):
 
+    application_utils = providers.DependenciesContainer()
+
     mappers = providers.DependenciesContainer()
 
     # controllers
@@ -23,5 +25,7 @@ class PostPackageContainer(containers.DeclarativeContainer):
 
     create_comment = ext_aiohttp.View(
         create_comment,
-        comment_mapper=mappers.comment_mapper
+        comment_mapper=mappers.comment_mapper,
+        ws_pool=application_utils.ws_pool,
+        logger=application_utils.logger
     )

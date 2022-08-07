@@ -68,7 +68,7 @@ async def get_all_posts(request, post_mapper, comment_mapper):
     })
 
 
-async def create_comment(request, comment_mapper):
+async def create_comment(request, comment_mapper, ws_pool, logger):
     user = request['user']
     body = await request.json()
     post_id = request.match_info.get('post_id')
@@ -83,7 +83,7 @@ async def create_comment(request, comment_mapper):
 
     await comment_mapper.create(comment)
 
-    return web.json_response({
+    serialized_comment = {
         'id': comment.id,
         'content': comment.content,
         'authorId': comment.author_id,
@@ -91,4 +91,8 @@ async def create_comment(request, comment_mapper):
         'postId': comment.post_id,
         'username': user.username,
         'avatar': user.avatar
-    })
+    }
+
+    await ws_pool.broadcast(serialized_comment)
+
+    return web.json_response(serialized_comment)
