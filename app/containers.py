@@ -160,5 +160,7 @@ class ApplicationContainer(containers.DeclarativeContainer):
 
     ws = providers.Container(
         WSContainer,
-        application_utils=application_utils
+        application_utils=application_utils,
+        mappers=mappers,
+        config=config
     )

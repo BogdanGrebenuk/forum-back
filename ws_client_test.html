@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var exampleSocket = new WebSocket("ws://localhost:8000/ws");
+        exampleSocket.onopen = function (event) {
+            exampleSocket.send('{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTg5ZGMwMmUtMjg4Ny00MmU4LWI2NzItN2Y1OWQ1ZWY5Y2NiIiwic2FsdCI6IjdiNGE4OWU2LTJmY2QtNGVkNC1hMWVmLTQ3MGM1YjM3OTk4NyJ9.qXKTJL-0EIIe7erzXuYcGiVD5LjE2OIQvL2Fbgqaf7I"}');
+        };
+        exampleSocket.onmessage = function (event) {
+            console.log(event.data);
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>

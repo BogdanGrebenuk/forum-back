@@ -93,6 +93,7 @@ async def create_comment(request, comment_mapper, ws_pool, logger):
         'avatar': user.avatar
     }
 
+    logger.info(f'Pool: {ws_pool._pool}')
     await ws_pool.broadcast(serialized_comment)
 
     return web.json_response(serialized_comment)

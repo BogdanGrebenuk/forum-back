@@ -8,14 +8,18 @@ from app.utils.mapper import EntityNotFound
 
 WHITELIST = [
     r"/login",
-    r"/register"
+    r"/register",
+    r"/ws"
 ]
 
 
 async def request_logger(request, handler, logger):
     logger.info(f"{request.method} {request.rel_url}")
     response = await handler(request)
-    logger.info(f"{response.text}")
+    try:
+        logger.info(f"{response.text}")
+    except AttributeError:
+        logger.info(f"{response}")
     return response
 
 
